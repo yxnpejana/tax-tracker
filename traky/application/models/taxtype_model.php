@@ -14,7 +14,7 @@ class Taxtype_model extends CI_Model {
                                                 break;
                         case 'unique': $query = $this->db->get_where('tax_types', array('tax_type_id' => $id), 0, 1);
                             break;
-                        case 'tax_clients': $query = $this->db->query('SELECT clients.client_id, clients.business_name, taxes.tax_id '
+                        case 'tax_clients': $query = $this->db->query('SELECT clients.client_id, clients.business_name, clients.tin, taxes.tax_id '
                                 . 'FROM clients RIGHT JOIN taxes on taxes.client_id = clients.client_id '
                                 . 'RIGHT JOIN tax_types on tax_types.tax_type_id = taxes.tax_type_id '
                                 . 'WHERE tax_types.tax_type_id = '.$id);

@@ -147,7 +147,7 @@
                       <div class="box box-danger">
                         <div class="box-header">
                           <!-- Date Due -->
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-4 hide">
                                   <label>Due Date:</label>
                                   <div class="input-group">
                                     <div class="input-group-addon">
@@ -158,7 +158,7 @@
                                 </div><!-- /.form group -->
                                 
                                 <!-- Date Filed -->
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-4 hide">
                                   <label>Filed Date:</label>
                                   <div class="input-group">
                                     <div class="input-group-addon">
@@ -169,7 +169,7 @@
                                 </div><!-- /.form group -->
                                 
                                 <!-- Taxes to View -->
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-4 hide">
                                     <label>Tax Type:</label>
                                     <div class="input-group">
                                         <div class="input-group-addon">
@@ -208,7 +208,8 @@
                                                         foreach ($ar_month as $month):
                                                             if(!empty($tax['payments'])):
                                                                 foreach($tax['payments'] as $payment):
-                                                                    if($month === date('M', strtotime($payment->date_filed))):
+                                                                    
+                                                                    if($month.' '.date('Y') === date('M Y', strtotime($payment->period))):
                                                         ?>
                                                                         <button class="btn btn-success tax-to-pay" id="<?php echo $tax['tax_id']; ?>" type="button" data-toggle="modal" data-target="#tax-modal"><?php echo $month; ?></button>                                                                                        
                                                                         <input type="hidden" value="<?php echo $payment->tax_payment_id.'/'.$payment->amount.'/'.$payment->date_filed.'/'.$payment->bank.'/'.$payment->period.'/'.$payment->form_copy; ?>">
@@ -259,7 +260,7 @@
                                                   
                                                     <div class="col-md-3 form-group">
                                                         <label for="taxPaymentID">ID</label>
-                                                        <input type="text" class="form-control" id="taxPaymentID" name="tax_payment_id" disabled>
+                                                        <input type="text" class="form-control" id="taxPaymentID" name="tax_id" readonly="readonly">
                                                     </div>
                                                     <div class="form-group col-md-9">
                                                         <label for="taxPaymentAmount">Amount</label>
@@ -278,8 +279,13 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group col-md-12">
-                                                        <label for="taxPaymentDateFiled">Period</label>
-                                                        <input type="text" id="taxPaymentDateFiled" name="period" class="form-control">
+                                                        <label for="taxPaymentPeriod">Period</label>
+                                                        <div class="input-group">
+                                                            <div class="input-group-addon">
+                                                                <i class="fa fa-calendar"></i>
+                                                            </div>
+                                                        <input type="text" id="taxPaymentPeriod" name="period" class="form-control">
+                                                        </div>
                                                     </div>
                                                     <div class="form-group col-md-12">
                                                         <label for="taxPaymentBank">Bank</label>
@@ -289,7 +295,7 @@
                                                         <label for="taxPaymentFile">File Location</label>
                                                         <div class="btn-group" data-toggle="buttons">
                                                             <label class="btn btn-primary">
-                                                                <input type="radio" name="file" id="taxPaymentFile" autocomplete="off"> On hand
+                                                                <input type="radio" name="form_copy" id="taxPaymentFile" autocomplete="off"> On hand
                                                             </label>
                                                             <label class="btn btn-primary">
                                                                 <input type="radio" name="file" id="taxPaymentFile" autocomplete="off"> Client

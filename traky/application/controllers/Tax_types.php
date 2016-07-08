@@ -67,9 +67,14 @@ class Tax_types extends CI_Controller {
             $clients = $this->taxtype_model->get_taxtypes('tax_clients', $tax_type_id);
             
             //get payments per client per tax type per period
+            $count = 0;
             foreach ($clients as $client){
                 $payments = $this->taxtype_model->get_taxtypes('payments', $client->tax_id);
                 $client->payments = $payments;
+                
+                $clients[$count] = $client;
+                
+                $count++;
             }
             
             //start working, Manage Tax Types per client   

@@ -46,6 +46,12 @@ $(document).ready(function(){
             minViewMode: "months",
             autoclose: true
         });
+        $('#taxPaymentPeriod').datepicker( {
+            format: "MM yyyy",
+            startView: "months", 
+            minViewMode: "months",
+            autoclose: true
+        });
         $('#client-started').datepicker( {
             format: 'yyyy-mm-dd',
             autoclose: true
@@ -68,6 +74,12 @@ $(document).ready(function(){
         });
         
         $('#taxes-filing-date').datepicker( {
+            format: "MM yyyy",
+            startView: "months", 
+            minViewMode: "months",
+            autoclose: true
+        });
+        $('#taxPaymentDateFiled').datepicker( {
             format: "MM yyyy",
             startView: "months", 
             minViewMode: "months",
@@ -102,7 +114,13 @@ $(document).ready(function(){
        $(".tax-to-pay").click(function(){
            var tax_id = $(this).attr('id');
            
-           $("#tax-modal .modal-content input[name=tax_id]").val(tax_id);
+           $("#form-pay-tax #taxPaymentID").val(tax_id);
+           
+            $("#form-pay-tax input[name=amount]").val('').attr('disabled', false);
+            $("#form-pay-tax input[name=date_filed]").val('').attr('disabled', false);
+            $("#form-pay-tax input[name=period]").val('').attr('disabled', false);
+            $("#form-pay-tax input[name=bank]").val('').attr('disabled', false);
+            $("#form-pay-tax input[name=form_copy]").val('').attr('disabled', false);
            
            if($(this).hasClass('btn-success')){
                $("#tax-modal").removeClass('modal-danger');
@@ -115,12 +133,19 @@ $(document).ready(function(){
                var info = $(this).next().val();
                var result = info.split("/");
                
-               $("#form-pay-tax input[name=tax_payment_id]").val(result[0]);
+               $("#form-pay-tax #taxPaymentID").val(result[0]);
                $("#form-pay-tax input[name=amount]").val(result[1]).attr('disabled', true);
                $("#form-pay-tax input[name=date_filed]").val(result[2]).attr('disabled', true);
                $("#form-pay-tax input[name=period]").val(result[4]).attr('disabled', true);
                $("#form-pay-tax input[name=bank]").val(result[3]).attr('disabled', true);
-               $("#form-pay-tax input[name=url]").val(result[5]).attr('disabled', true);
+               if(result[5] == 'on-hand'){
+                   $("#form-pay-tax input[value=on-hand]").parent().attr('disabled', true);
+                   $("#form-pay-tax input[value=client]").parent().addClass('hide');
+                   
+               }else if(result[5] == 'client'){
+                   $("#form-pay-tax input[value=on-hand]").parent().addClass('hide');
+                   $("#form-pay-tax input[value=client]").parent().attr('disabled', true);
+               }
                
                $(".modal-footer button.btn-primary").hide();
                
@@ -131,12 +156,11 @@ $(document).ready(function(){
                $("#tax-modal .modal-dialog").removeClass('modal-lg');
                $("#tax-modal .modal-dialog").addClass('modal-sm');
                
-               $("#form-pay-tax input[name=tax_payment_id]").val('');
                $("#form-pay-tax input[name=amount]").val('').attr('disabled', false);
                $("#form-pay-tax input[name=date_filed]").val('').attr('disabled', false);
                $("#form-pay-tax input[name=period]").val('').attr('disabled', false);
                $("#form-pay-tax input[name=bank]").val('').attr('disabled', false);
-               $("#form-pay-tax input[name=url]").val('').attr('disabled', false);
+               $("#form-pay-tax input[name=form_copy]").val('').attr('disabled', false);
                
                $(".modal-footer button.btn-primary").show();
            }

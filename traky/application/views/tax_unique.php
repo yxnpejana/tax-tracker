@@ -82,6 +82,7 @@
 						<thead>
 						  <tr>
 							<th>Clients</th>
+                                                        <th> TIN </th>
                                                         <th>Payments</th>
 						  </tr>
 						</thead>
@@ -90,6 +91,7 @@
                                                         foreach($clients as $client):  ?>
 						  <tr>							
 							<td><?php echo $client->business_name; ?></td>
+                                                        <td><?php echo $client->tin; ?></td>
                                                         <td>
                                                             <div class="btn-group" style="padding-left: 10px;">
                                     
@@ -97,29 +99,46 @@
                                                                     case 'monthly':
                                                                         $ar_month = array('Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec');
                                                                         foreach ($ar_month as $month):
-                                                                            foreach($client->payments as $payment):
-                                                                                if($month === date('M', strtotime($payment->date_filed))):
+                                                                            if(!empty($client->payments)):
+                                                                                foreach($client->payments as $payment):
+                                                                                    if($month.' '.date('Y') === date('M Y', strtotime($payment->period))):
                                                                         ?>
-                                                                                    <button class="btn btn-success tax-to-pay" id="<?php echo $client->tax_id; ?>" type="button" data-toggle="modal" data-target="#tax-modal"><?php echo $month; ?></button>                                                                                        
-                                                                                    <input type="hidden" value="<?php echo $payment->tax_payment_id.'/'.$payment->amount.'/'.$payment->date_filed.'/'.$payment->bank.'/'.$payment->period.'/'.$payment->form_copy; ?>">
+                                                                                        <button class="btn btn-success tax-to-pay" id="<?php echo $client->tax_id; ?>" type="button" data-toggle="modal" data-target="#tax-modal"><?php echo $month; ?></button>                                                                                        
+                                                                                        <input type="hidden" value="<?php echo $payment->tax_payment_id.'/'.$payment->amount.'/'.date('F d Y', strtotime($payment->date_filed)).'/'.$payment->bank.'/'.$payment->period.'/'.$payment->form_copy; ?>">
                                                                         <?php 
-                                                                                else:
+                                                                                    else:
                                                                         ?>
-                                                                                    <button class="btn btn-danger tax-to-pay" id="<?php echo $client->tax_id; ?>" type="button" data-toggle="modal" data-target="#tax-modal"><?php echo $month; ?></button>
+                                                                                        <button class="btn btn-danger tax-to-pay" id="<?php echo $client->tax_id; ?>" type="button" data-toggle="modal" data-target="#tax-modal"><?php echo $month; ?></button>
                                                                         <?php
-                                                                                endif;
-                                                                            endforeach; 
+                                                                                    endif;
+                                                                                endforeach; 
+                                                                            else:
+                                                                        ?>
+                                                                                <button class="btn btn-danger tax-to-pay" id="<?php echo $client->tax_id; ?>" type="button" data-toggle="modal" data-target="#tax-modal"><?php echo $month; ?></button>
+                                                                         <?php
+                                                                            endif;
                                                                         endforeach;
                                                                         break;
                                                                     case 'annually':?>
                                                                         <button class="btn btn-danger tax-to-pay" id="<?php echo $client->tax_id; ?>" type="button" data-toggle="modal" data-target="#tax-modal">2016</button>
                                                                         <?php  break;
-                                                                    case 'quarterly':?>
-                                                                        <button class="btn btn-danger tax-to-pay" id="<?php echo $client->tax_id; ?>" type="button" data-toggle="modal" data-target="#tax-modal">1<sub>st</sub> Quarter</button>
-                                                                        <button class="btn btn-danger tax-to-pay" id="<?php echo $client->tax_id; ?>" type="button" data-toggle="modal" data-target="#tax-modal">2<sub>nd</sub> Quarter</button>
-                                                                        <button class="btn btn-danger tax-to-pay" id="<?php echo $client->tax_id; ?>" type="button" data-toggle="modal" data-target="#tax-modal">3<sub>rd</sub> Quarter</button>
-                                                                        <button class="btn btn-danger tax-to-pay" id="<?php echo $client->tax_id; ?>" type="button" data-toggle="modal" data-target="#tax-modal">4<sub>th</sub> Quarter</button>
-                                                                        <?php  break;
+                                                                    case 'quarterly':
+                                                                            if(!empty($tax['payments'])):
+                                                                        ?>
+                                                                                <button class="btn btn-danger tax-to-pay" id="<?php echo $client->tax_id; ?>" type="button" data-toggle="modal" data-target="#tax-modal">1<sub>st</sub> Quarter</button>
+                                                                                <button class="btn btn-danger tax-to-pay" id="<?php echo $client->tax_id; ?>" type="button" data-toggle="modal" data-target="#tax-modal">2<sub>nd</sub> Quarter</button>
+                                                                                <button class="btn btn-danger tax-to-pay" id="<?php echo $client->tax_id; ?>" type="button" data-toggle="modal" data-target="#tax-modal">3<sub>rd</sub> Quarter</button>
+                                                                                <button class="btn btn-danger tax-to-pay" id="<?php echo $client->tax_id; ?>" type="button" data-toggle="modal" data-target="#tax-modal">4<sub>th</sub> Quarter</button>
+                                                                        <?php  
+                                                                            else:
+                                                                        ?>
+                                                                                <button class="btn btn-danger tax-to-pay" id="<?php echo $client->tax_id; ?>" type="button" data-toggle="modal" data-target="#tax-modal">1<sub>st</sub> Quarter</button>
+                                                                                <button class="btn btn-danger tax-to-pay" id="<?php echo $client->tax_id; ?>" type="button" data-toggle="modal" data-target="#tax-modal">2<sub>nd</sub> Quarter</button>
+                                                                                <button class="btn btn-danger tax-to-pay" id="<?php echo $client->tax_id; ?>" type="button" data-toggle="modal" data-target="#tax-modal">3<sub>rd</sub> Quarter</button>
+                                                                                <button class="btn btn-danger tax-to-pay" id="<?php echo $client->tax_id; ?>" type="button" data-toggle="modal" data-target="#tax-modal">4<sub>th</sub> Quarter</button>
+                                                                        <?php
+                                                                            endif;
+                                                                            break;
                                                                 endswitch;
                                                                 ?>                                    
                                                             </div>
@@ -137,51 +156,71 @@
 						</tfoot>
 					  </table>
                                             
-                                            <!--DIV class box for tax payments monthly-->
+                                    <!--DIV class box for tax payments monthly-->
                                     <div class="modal fade modal-danger" id="tax-modal" tabindex="-1" role="dialog" aria-labelledby="mytaxModalLabel">
                                         <div class="modal-dialog modal-sm" role="document">
                                           <div class="modal-content">
-                                              <form action="<?php echo DIR_TRAKY; ?>tax/filing" method="post" id="form-pay-tax">
-                                            <div class="modal-header">
-                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                              <h4 class="modal-title" id="myModalLabel">Tax Filing</h4>
+                                              <form action="<?php echo DIR_TRAKY; ?>tax/filing" method="post" id="form-pay-tax" role="form">
+                                                <div class="modal-header">
+                                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                  <h4 class="modal-title" id="myModalLabel">Tax Filing</h4>
+                                                </div>
+                                                  <input type="hidden" name="from" value="<?php echo uri_string(); ?>">
+                                                  
+                                                    <div class="col-md-3 form-group">
+                                                        <label for="taxPaymentID">ID</label>
+                                                        <input type="text" class="form-control" id="taxPaymentID" name="tax_id" readonly="readonly">
+                                                    </div>
+                                                    <div class="form-group col-md-9">
+                                                        <label for="taxPaymentAmount">Amount</label>
+                                                        <div class="input-group">
+                                                          <span class="input-group-addon">₱</span>
+                                                          <input class="form-control" type="text" id="taxPaymentAmount" name="amount">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-md-12">
+                                                        <label for="taxPaymentDateFiled">Date Filed</label>
+                                                        <div class="input-group">
+                                                            <div class="input-group-addon">
+                                                                <i class="fa fa-calendar"></i>
+                                                            </div>
+                                                          <input type="text" id="taxPaymentDateFiled" name="date_filed" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-md-12">
+                                                        <label for="taxPaymentPeriod">Period</label>
+                                                        <div class="input-group">
+                                                            <div class="input-group-addon">
+                                                                <i class="fa fa-calendar"></i>
+                                                            </div>
+                                                        <input type="text" id="taxPaymentPeriod" name="period" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-md-12">
+                                                        <label for="taxPaymentBank">Bank</label>
+                                                        <input type="text" id="taxPaymentBank" name="bank" class="form-control">
+                                                    </div>
+                                                   <div class="form-group  col-md-12">
+                                                        <label for="taxPaymentFile">File Location</label>
+                                                        <div class="btn-group" data-toggle="buttons">
+                                                            <label class="btn btn-primary">
+                                                                <input type="radio" name="form_copy" id="taxPaymentFile" autocomplete="off" value="on-hand"> On hand
+                                                            </label>
+                                                            <label class="btn btn-primary">
+                                                                <input type="radio" name="form_copy" id="taxPaymentFile" autocomplete="off" value="client"> Client
+                                                            </label>                                                        
+                                                        </div>
+                                                   </div>
+                                                    
+                                                  
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                              </div>
+                                                </form>
                                             </div>
-                                                <input type="hidden" name="from" value="<?php echo uri_string(); ?>">
-                                                <input type="hidden" name="tax_id" value="">
-                                                
-                                                <div class="col-md-3">
-                                                      <input type="text" placeholder="ID" class="form-control" name="tax_payment_id" disabled>
-                                                    </div>
-                                                    <div class="input-group">
-                                                      <span class="input-group-addon">₱</span>
-                                                      <input class="form-control" type="text" placeholder="amount" name="amount">
-                                                      <span class="input-group-addon">.00</span>
-                                                    </div>
-                                                    <div class="input-group">
-                                                      <div class="input-group-addon">
-                                                          <i class="fa fa-calendar"></i>
-                                                      </div>
-                                                        <input type="text" placeholder="Date Filed" name="date_filed" id="tax-paid" class="form-control">
-                                                    </div>
-                                                    <div>
-                                                      <input type="text" placeholder="Period" name="period" class="form-control">
-                                                    </div>
-                                                    <div>
-                                                      <input type="text" placeholder="Bank Name" name="bank" class="form-control">
-                                                    </div>
-                                                    <div>
-                                                      <input type="text" placeholder="File" name="form_copy" class="form-control">
-                                                    </div>
-
-
-                                          <div class="modal-footer">
-                                              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                              <button type="submit" class="btn btn-primary">Save changes</button>
-                                            </div>
-                                              </form>
                                           </div>
                                         </div>
-                                      </div>
 					
 </div><!-- /.box-body -->
 			  </div><!-- /.box -->

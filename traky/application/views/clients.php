@@ -116,7 +116,7 @@
                                 <div class="input-group-addon">
                                   <i class="fa fa-calendar"></i>
                                 </div>
-                                <input type="text" name="date_started" placeholder="Date started" class="form-control" id="taxes-due-date">
+                                <input type="text" name="date_started" placeholder="Date started" class="form-control" id="client-started">
                             </div>
                             <div class="btn-group" data-toggle="buttons">
                                 <label class="btn btn-primary">

@@ -87,8 +87,8 @@ class Client_model extends CI_Model {
                     'tin' => $data['tin'],
                     'address' => $data['client_address'],
                     'rdo' => $data['rdo'],
-                    'status' => $data['client_status'],
-                    'has_stock' => $data['stock'],
+                    'corp' => $data['client_status'],
+                    'has_stock' => isset($data['stock'])? $data['stock']: false,
                     'date_started' => $data['date_started']
             );
 
