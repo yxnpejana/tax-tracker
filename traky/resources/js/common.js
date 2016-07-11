@@ -114,13 +114,13 @@ $(document).ready(function(){
        $(".tax-to-pay").click(function(){
            var tax_id = $(this).attr('id');
            
-           $("#form-pay-tax #taxPaymentID").val(tax_id);
+//           $("#form-pay-tax #taxPaymentID").val(tax_id);
+            $("#form-pay-tax").children().eq(2).children().eq(1).val(tax_id);
            
             $("#form-pay-tax input[name=amount]").val('').attr('disabled', false);
             $("#form-pay-tax input[name=date_filed]").val('').attr('disabled', false);
             $("#form-pay-tax input[name=period]").val('').attr('disabled', false);
-            $("#form-pay-tax input[name=bank]").val('').attr('disabled', false);
-            $("#form-pay-tax input[name=form_copy]").val('').attr('disabled', false);
+            $("#form-pay-tax input[name=bank]").val('').attr('disabled', false);        
            
            if($(this).hasClass('btn-success')){
                $("#tax-modal").removeClass('modal-danger');
@@ -139,18 +139,54 @@ $(document).ready(function(){
                $("#form-pay-tax input[name=period]").val(result[4]).attr('disabled', true);
                $("#form-pay-tax input[name=bank]").val(result[3]).attr('disabled', true);
                if(result[5] == 'on-hand'){
-                   $("#form-pay-tax input[value=on-hand]").parent().attr('disabled', true);
-                   $("#form-pay-tax input[value=client]").parent().addClass('hide');
+                   $("#form-pay-tax").children().eq(7).children().eq(1).children().eq(0).addClass("active").children().eq(0).attr('readonly', true);
+//                   $("#form-pay-tax input[value='on-hand']").parent().attr('readonly', true);
+//                   $("#form-pay-tax input[value='client']").parent().addClass('hide');
+                   $("#form-pay-tax").children().eq(7).children().eq(1).children().eq(1).addClass('hide');
                    
                }else if(result[5] == 'client'){
-                   $("#form-pay-tax input[value=on-hand]").parent().addClass('hide');
-                   $("#form-pay-tax input[value=client]").parent().attr('disabled', true);
+//                   $("#form-pay-tax input[value='on-hand']").parent().addClass('hide');
+//                   $("#form-pay-tax input[value='client']").parent().attr('readonly', true);
+                    $("#form-pay-tax").children().eq(7).children().eq(1).children().eq(0).addClass('hide');
+                    $("#form-pay-tax").children().eq(7).children().eq(1).children().eq(1).addClass("active").children().eq(0).attr('readonly', true);
+               }
+               
+               $(".modal-footer button.btn-primary").hide();
+               
+           } else if($(this).hasClass('btn-warning')){
+               $("#tax-modal").removeClass('modal-danger');
+               $("#tax-modal").addClass('modal-warning');
+               
+               $("#tax-modal .modal-dialog").removeClass('modal-sm');
+               $("#tax-modal .modal-dialog").addClass('modal-lg');
+               
+               //get info about these
+               var info = $(this).next().val();
+               var result = info.split("/");
+               
+               $("#form-pay-tax #taxPaymentID").val(result[0]);
+               $("#form-pay-tax input[name=amount]").val(result[1]).attr('disabled', true);
+               $("#form-pay-tax input[name=date_filed]").val(result[2]).attr('disabled', true);
+               $("#form-pay-tax input[name=period]").val(result[4]).attr('disabled', true);
+               $("#form-pay-tax input[name=bank]").val(result[3]).attr('disabled', true);
+               if(result[5] == 'on-hand'){
+                   $("#form-pay-tax").children().eq(7).children().eq(1).children().eq(0).addClass("active").children().eq(0).attr('readonly', true);
+//                   $("#form-pay-tax input[value='on-hand']").parent().attr('readonly', true);
+//                   $("#form-pay-tax input[value='client']").parent().addClass('hide');
+                   $("#form-pay-tax").children().eq(7).children().eq(1).children().eq(1).addClass('hide');
+                   
+               }else if(result[5] == 'client'){
+//                   $("#form-pay-tax input[value='on-hand']").parent().addClass('hide');
+//                   $("#form-pay-tax input[value='client']").parent().attr('readonly', true);
+                    $("#form-pay-tax").children().eq(7).children().eq(1).children().eq(0).addClass('hide');
+                    $("#form-pay-tax").children().eq(7).children().eq(1).children().eq(1).addClass("active").children().eq(0).attr('readonly', true);
                }
                
                $(".modal-footer button.btn-primary").hide();
                
            } else {
                $("#tax-modal").removeClass('modal-success');
+               $("#tax-modal").removeClass('modal-warning');
                $("#tax-modal").addClass('modal-danger');
                
                $("#tax-modal .modal-dialog").removeClass('modal-lg');
@@ -160,7 +196,9 @@ $(document).ready(function(){
                $("#form-pay-tax input[name=date_filed]").val('').attr('disabled', false);
                $("#form-pay-tax input[name=period]").val('').attr('disabled', false);
                $("#form-pay-tax input[name=bank]").val('').attr('disabled', false);
-               $("#form-pay-tax input[name=form_copy]").val('').attr('disabled', false);
+               
+               $("#form-pay-tax").children().eq(7).children().eq(1).children().eq(0).removeClass('hide');
+               $("#form-pay-tax").children().eq(7).children().eq(1).children().eq(1).removeClass('hide');
                
                $(".modal-footer button.btn-primary").show();
            }

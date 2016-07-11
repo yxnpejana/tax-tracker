@@ -295,10 +295,10 @@
                                                         <label for="taxPaymentFile">File Location</label>
                                                         <div class="btn-group" data-toggle="buttons">
                                                             <label class="btn btn-primary">
-                                                                <input type="radio" name="form_copy" id="taxPaymentFile" autocomplete="off"> On hand
+                                                                <input type="radio" name="form_copy" id="taxPaymentFile" autocomplete="off" value="on-hand"> On hand
                                                             </label>
                                                             <label class="btn btn-primary">
-                                                                <input type="radio" name="file" id="taxPaymentFile" autocomplete="off"> Client
+                                                                <input type="radio" name="form_copy" id="taxPaymentFile" autocomplete="off" value="client"> Client
                                                             </label>                                                        
                                                         </div>
                                                    </div>

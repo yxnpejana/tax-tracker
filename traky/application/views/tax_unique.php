@@ -23,6 +23,10 @@
                 <i class="fa fa-calendar "></i><span>Calendar</span></i>
               </a>
             </li>
+            <li class="header">LEGEND</li>
+            <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>No Record Here</span></a></li>
+            <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Copy is on client</span></a></li>
+            <li><a href="#"><i class="fa fa-circle-o text-green"></i> <span>Copy is on-hand</span></a></li>
           </ul>
         </section>
         <!-- /.sidebar -->
@@ -102,8 +106,9 @@
                                                                             if(!empty($client->payments)):
                                                                                 foreach($client->payments as $payment):
                                                                                     if($month.' '.date('Y') === date('M Y', strtotime($payment->period))):
+                                                                                       $color_change = ($payment->form_copy == 'on-hand')? 'btn-success' : 'btn-warning';
                                                                         ?>
-                                                                                        <button class="btn btn-success tax-to-pay" id="<?php echo $client->tax_id; ?>" type="button" data-toggle="modal" data-target="#tax-modal"><?php echo $month; ?></button>                                                                                        
+                                                                                        <button class="btn <?php echo $color_change; ?> tax-to-pay" id="<?php echo $client->tax_id; ?>" type="button" data-toggle="modal" data-target="#tax-modal"><?php echo $month; ?></button>                                                                                        
                                                                                         <input type="hidden" value="<?php echo $payment->tax_payment_id.'/'.$payment->amount.'/'.date('F d Y', strtotime($payment->date_filed)).'/'.$payment->bank.'/'.$payment->period.'/'.$payment->form_copy; ?>">
                                                                         <?php 
                                                                                     else:
