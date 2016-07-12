@@ -25,7 +25,39 @@ class Tax_model extends CI_Model {
     public function not_yet_filed(){      
         $has_deadline = $this->todayhas_deadline();
         
-        return $has_deadline;
+        //get how many not yet filed
+        $main = array();
+        $count = 0;
+        
+        
+        foreach($has_deadline as $deadline){
+            $query = $this->db->query('SELECT clients.business_name, clients.client_id '
+                . 'FROM clients RIGHT JOIN taxes ON taxes.client_id = clients.client_id'
+                . ' WHERE clients.client_id NOT IN(SELECT clients.client_id '
+                . '                                             FROM tax_payments '
+                . '                                             LEFT JOIN taxes ON taxes.tax_id = tax_payments.tax_id '
+                . '                                             LEFT JOIN clients on clients.client_id = taxes.client_id '
+                . '                                             WHERE taxes.tax_type_id = '.$deadline->tax_type_id.' AND tax_payments.period = "'. date('F Y', strtotime('- 1 month')).'")'
+                . ' AND taxes.tax_type_id = '.$deadline->tax_type_id.'');
+            
+            
+            if($query->num_rows() > 0){
+                $count += $query->num_rows();
+                
+                $clients[$deadline->tax_type_form] = array();
+                $row = $query->result_array();  
+                $clients[$deadline->tax_type_form ]= $row;
+
+            }
+            
+            $main['count'] = $count;
+            $main['clients'] = $clients;
+            
+            
+        }
+        
+        return $main;
+        
     }
     
     private function todayhas_deadline(){

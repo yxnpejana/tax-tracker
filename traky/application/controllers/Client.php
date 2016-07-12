@@ -5,9 +5,9 @@ class Client extends CI_Controller {
 
 	public function index(){
             if($this->session->userdata('logged_in') === TRUE){
-                    redirect('client/view_all');
+                redirect('client/view_all');
             } else {
-                    $this->load->view('login');
+                redirect('welcome');
             }		
 	}
 	

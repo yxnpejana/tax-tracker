@@ -147,10 +147,10 @@
                           <label><input type="radio" value="14" name="repeat-freq" align="bottom">two weeks</label>
                       </div>
                       <!--<div class="checkbox">
-                          <label><input type="radio" value="30" name="repeat-freq" align="bottom">monthly</label>
+                          <label><input type="radio" value="28" name="repeat-freq" align="bottom">monthly</label>
                       </div>-->
                       <div class="checkbox">
-                          <label><input type="radio" value="366" name="repeat-freq" align="bottom">yearly</label>
+                          <label><input type="radio" value="365" name="repeat-freq" align="bottom">yearly</label>
                       </div>
                           
                     </div>

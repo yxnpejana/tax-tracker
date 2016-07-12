@@ -15,7 +15,7 @@ class Calendar extends CI_Controller {
             $this->load->view('calendar', $data);
  
         } else {
-                $this->load->view('login');
+            redirect('welcome');
         }		
     }
     

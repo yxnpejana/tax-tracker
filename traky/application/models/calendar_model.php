@@ -73,10 +73,10 @@ class Calendar_model extends CI_Model {
             for($x = 0; $x <$until; $x++){
                 $child_event['parent_id'] = $parent_id;
                 
-                $start_date = strtotime($child_event['start'].' + '.$repeat_freq.' DAYS');
+                $start_date = strtotime($child_event['start']);
                 
                 if($allday){
-                    $end_date = strtotime($child_event['start'].' + '.$repeat_freq.' DAYS');
+                    $end_date = strtotime($child_event['start']);
                 } else {
                     $end_date = strtotime($child_event['end'].' + '.$repeat_freq.' DAYS');
                 }

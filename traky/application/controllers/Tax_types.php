@@ -5,9 +5,9 @@ class Tax_types extends CI_Controller {
 
 	public function index(){
             if($this->session->userdata('logged_in') === TRUE){
-                    redirect('tax_types/view_all');
+                redirect('tax_types/view_all');
             } else {
-                    $this->load->view('login');
+                redirect('welcome');
             }		
 	}
         

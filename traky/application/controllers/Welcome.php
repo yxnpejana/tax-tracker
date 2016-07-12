@@ -21,12 +21,14 @@ class Welcome extends CI_Controller {
                 //get not yet filed
                 $this->load->model('tax_model');
                 $not_yet_filed = $this->tax_model->not_yet_filed();
-                
+                    
+                $data['not_filed_yet'] = $not_yet_filed;
                 $data['upDeadline_count'] = count($get_taxes_toBeFiled);
                 $data['to_be_filed'] = $get_taxes_toBeFiled;
                 $data['events'] = $events;
                 $data['title'] = 'Dashboard';
                 $this->load->view('dashboard', $data);
+                
             } else {
                 $this->load->view('login');
             }		
