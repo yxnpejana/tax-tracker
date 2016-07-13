@@ -29,31 +29,36 @@ class Tax_model extends CI_Model {
         $main = array();
         $count = 0;
         
-        
-        foreach($has_deadline as $deadline){
-            $query = $this->db->query('SELECT clients.business_name, clients.client_id '
-                . 'FROM clients RIGHT JOIN taxes ON taxes.client_id = clients.client_id'
-                . ' WHERE clients.client_id NOT IN(SELECT clients.client_id '
-                . '                                             FROM tax_payments '
-                . '                                             LEFT JOIN taxes ON taxes.tax_id = tax_payments.tax_id '
-                . '                                             LEFT JOIN clients on clients.client_id = taxes.client_id '
-                . '                                             WHERE taxes.tax_type_id = '.$deadline->tax_type_id.' AND tax_payments.period = "'. date('F Y', strtotime('- 1 month')).'")'
-                . ' AND taxes.tax_type_id = '.$deadline->tax_type_id.'');
-            
-            
-            if($query->num_rows() > 0){
-                $count += $query->num_rows();
-                
-                $clients[$deadline->tax_type_form] = array();
-                $row = $query->result_array();  
-                $clients[$deadline->tax_type_form ]= $row;
+        if($has_deadline){
+            foreach($has_deadline as $deadline){
+                $query = $this->db->query('SELECT clients.business_name, clients.client_id, clients.tin '
+                    . 'FROM clients RIGHT JOIN taxes ON taxes.client_id = clients.client_id'
+                    . ' WHERE clients.client_id NOT IN(SELECT clients.client_id '
+                    . '                                             FROM tax_payments '
+                    . '                                             LEFT JOIN taxes ON taxes.tax_id = tax_payments.tax_id '
+                    . '                                             LEFT JOIN clients on clients.client_id = taxes.client_id '
+                    . '                                             WHERE taxes.tax_type_id = '.$deadline->tax_type_id.' AND tax_payments.period = "'. date('F Y', strtotime('- 1 month')).'")'
+                    . ' AND taxes.tax_type_id = '.$deadline->tax_type_id.'');
 
-            }
+
+                if($query->num_rows() > 0){
+                    $count += $query->num_rows();
+
+                    $clients[$deadline->tax_type_form] = array();
+                    $row = $query->result_array();  
+                    $clients[$deadline->tax_type_form ]= $row;
+                    
+                    $main['count'] = $count;
+                    $main['clients'] = $clients;
+                } 
+
+                
+
+
+            } 
             
-            $main['count'] = $count;
-            $main['clients'] = $clients;
-            
-            
+        } else {
+            $main = FALSE;
         }
         
         return $main;
@@ -65,8 +70,8 @@ class Tax_model extends CI_Model {
         $date_today = date('d');
         $date_todayM = date('F d');
         //minus 3 days to check for weekends purposes
-        $date_today3 = date('d', strtotime(' - 3 days'));
-        $date_todayM3 = date('F d', strtotime(' - 3 days'));
+        $date_today3 = date('d', strtotime(' - 10 days'));
+        $date_todayM3 = date('F d', strtotime(' - 10 days'));
         
         $query = $this->db->query('SELECT tax_types.tax_type_id, tax_types.tax_type_form '
                 . 'FROM tax_types '

@@ -12,6 +12,12 @@ class Client extends CI_Controller {
 	}
 	
 	public function view_all(){
+            if($this->session->userdata('logged_in') !== TRUE){
+                $logs = array('current' => site_url(), 'go_bak' => TRUE);
+                $this->session->flashdata($logs);
+                redirect('welcome');
+            } 
+            
             $this->load->model('client_model');
 
             $clients = $this->client_model->get_clients('all',0,10);	
@@ -26,6 +32,12 @@ class Client extends CI_Controller {
 	}
 	
 	public function view_client($client_id){
+            if($this->session->userdata('logged_in') !== TRUE){
+                $logs = array('current' => site_url(), 'go_bak' => TRUE);
+                $this->session->flashdata($logs);
+                redirect('welcome');
+            } 
+            
             $this->load->model('client_model');
             
             $data['client'] = $this->client_model->client_info($client_id);	            
@@ -40,6 +52,12 @@ class Client extends CI_Controller {
         }
         
         public function print_this($status){
+            if($this->session->userdata('logged_in') !== TRUE){
+                $logs = array('current' => site_url(), 'go_bak' => TRUE);
+                $this->session->flashdata($logs);
+                redirect('welcome');
+            } 
+            
             $this->load->model('client_model');
             
             $clients = $this->client_model->get_clients($status,0,80);

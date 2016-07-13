@@ -12,6 +12,12 @@ class Tax_types extends CI_Controller {
 	}
         
         public function view_all(){
+            if($this->session->userdata('logged_in') !== TRUE){
+                $logs = array('current' => site_url(), 'go_bak' => TRUE);
+                $this->session->flashdata($logs);
+                redirect('welcome');
+            } 
+            
             $this->load->model('taxtype_model');
 
             $taxtypes = $this->taxtype_model->get_taxtypes('all');	
@@ -41,6 +47,12 @@ class Tax_types extends CI_Controller {
         }
         
         public function view_all_clients($tax_type_id){
+            if($this->session->userdata('logged_in') !== TRUE){
+                $logs = array('current' => site_url(), 'go_bak' => TRUE);
+                $this->session->flashdata($logs);
+                redirect('welcome');
+            } 
+            
             $this->load->model('taxtype_model');
 
             $taxtypes = $this->taxtype_model->get_taxtypes('unique', $tax_type_id);	

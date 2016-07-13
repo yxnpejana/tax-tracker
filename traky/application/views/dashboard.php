@@ -27,6 +27,8 @@
         </section>
         <!-- /.sidebar -->
       </aside>
+      
+
 
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
@@ -50,19 +52,22 @@
               <!-- small box -->
               <div class="small-box bg-red">
                 <div class="inner">
-                  <h3><?php echo $not_filed_yet['count']; ?></h3>
-                  <p>Not yet filed</p>
+                  <h3><?php echo ($not_filed_yet)? $not_filed_yet['count']:  0; ?></h3>
+                  <p>Not yet filed/No record here</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-android-compass"></i>
                 </div>
-                <?php foreach($not_filed_yet['clients'] as $key => $not_filed): 
-                        foreach($not_filed as $omg => $lacking): ?>
-                            <a href="<?php echo DIR_TRAKY.'client/view_client/'.$lacking['client_id']; ?>" class="small-box-footer">
-                                <?php echo '<strong>'.$key.'</strong> - <i>'.$lacking['business_name'].'</i>'; ?>
-                                <i class="fa fa-arrow-circle-right"></i></a>
+                <?php if($not_filed_yet):
+                        foreach($not_filed_yet['clients'] as $key => $not_filed): 
+                            foreach($not_filed as $omg => $lacking): ?>
+                                <a href="<?php echo DIR_TRAKY.'client/view_client/'.$lacking['client_id']; ?>" class="small-box-footer">
+                                    <?php echo '<strong>'.$key.'</strong> - <i>'.$lacking['business_name'].' '.substr($lacking['tin'], -3).'</i>'; ?>
+                                    <i class="fa fa-arrow-circle-right"></i></a>
                 <?php   endforeach;
-                    endforeach; ?>
+                        endforeach; 
+                      endif;
+                    ?>
               </div>
             </div><!-- ./col -->
             
@@ -91,7 +96,7 @@
             <!-- Left col -->
             <section class="col-lg-7 connectedSortable">  
               <!-- TO DO List -->
-              <div class="box box-primary">
+             <!-- <div class="box box-primary">
                 <div class="box-header">
                   <i class="ion ion-clipboard"></i>
                   <h3 class="box-title">To Do List</h3>
@@ -105,22 +110,22 @@
                     </ul>
                   </div>
                 </div><!-- /.box-header -->
-                <div class="box-body">
+               <!-- <div class="box-body">
                   <ul class="todo-list">
                     <li>
                       <!-- drag handle -->
-                      <span class="handle">
+                      <!--<span class="handle">
                         <i class="fa fa-ellipsis-v"></i>
                         <i class="fa fa-ellipsis-v"></i>
                       </span>
                       <!-- checkbox -->
-                      <input type="checkbox" value="" name="">
+                     <!-- <input type="checkbox" value="" name="">
                       <!-- todo text -->
-                      <span class="text">Design a nice theme</span>
+                      <!--<span class="text">Design a nice theme</span>
                       <!-- Emphasis label -->
-                      <small class="label label-danger"><i class="fa fa-clock-o"></i> 2 mins</small>
+                     <!-- <small class="label label-danger"><i class="fa fa-clock-o"></i> 2 mins</small>
                       <!-- General tools such as edit or delete-->
-                      <div class="tools">
+                      <!--<div class="tools">
                         <i class="fa fa-edit"></i>
                         <i class="fa fa-trash-o"></i>
                       </div>
@@ -192,7 +197,7 @@
                     </li>
                   </ul>
                 </div><!-- /.box-body -->
-                <div class="box-footer clearfix no-border">
+               <!-- <div class="box-footer clearfix no-border">
                   <button class="btn btn-default pull-right"><i class="fa fa-plus"></i> Add item</button>
                 </div>
               </div><!-- /.box -->

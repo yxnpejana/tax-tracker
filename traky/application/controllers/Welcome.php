@@ -8,6 +8,10 @@ class Welcome extends CI_Controller {
             if($this->session->userdata('logged_in') === TRUE){
                 //start working, View Dashboard
                 
+                if($this->session->flashdata('go_bak') === TRUE){
+                    redirect($this->session->flashdata('current'));
+                }
+                
                 //get upcoming events
                 $this->load->model('calendar_model');
                 $today = date('Y-m-d');
@@ -57,7 +61,13 @@ class Welcome extends CI_Controller {
                     //start working, View Dashboard
 
             } 
-            redirect('welcome');
+            
+            if($this->session->flashdata('go_bak') === TRUE){
+                    redirect($this->session->flashdata('current'));
+            } else {
+                redirect('welcome');
+            }
+            
 	}
 	
 	public function logout(){
