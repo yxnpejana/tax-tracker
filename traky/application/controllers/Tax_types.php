@@ -4,19 +4,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Tax_types extends CI_Controller {
 
 	public function index(){
-            if($this->session->userdata('logged_in') === TRUE){
+//            if($this->session->userdata('logged_in') === TRUE){
                 redirect('tax_types/view_all');
-            } else {
-                redirect('welcome');
-            }		
+//            } else {
+//                redirect('welcome');
+//            }		
 	}
         
         public function view_all(){
-            if($this->session->userdata('logged_in') !== TRUE){
-                $logs = array('current' => site_url(), 'go_bak' => TRUE);
-                $this->session->flashdata($logs);
-                redirect('welcome');
-            } 
+//            if($this->session->userdata('logged_in') !== TRUE){
+//                $logs = array('current' => site_url(), 'go_bak' => TRUE);
+//                $this->session->flashdata($logs);
+//                redirect('welcome');
+//            } 
             
             $this->load->model('taxtype_model');
 
@@ -47,11 +47,11 @@ class Tax_types extends CI_Controller {
         }
         
         public function view_all_clients($tax_type_id){
-            if($this->session->userdata('logged_in') !== TRUE){
-                $logs = array('current' => site_url(), 'go_bak' => TRUE);
-                $this->session->flashdata($logs);
-                redirect('welcome');
-            } 
+//            if($this->session->userdata('logged_in') !== TRUE){
+//                $logs = array('current' => site_url(), 'go_bak' => TRUE);
+//                $this->session->flashdata($logs);
+//                redirect('welcome');
+//            } 
             
             $this->load->model('taxtype_model');
 
@@ -62,17 +62,39 @@ class Tax_types extends CI_Controller {
                 case 'monthly': 
                                 if(date('j') > $taxtypes[0]->due_date){
                                     //lapas na
-                                    $data['due'] = 'Next Due on '.date('F '.$taxtypes[0]->due_date.', Y', strtotime('+1 month'));
+                                    $data['due'] = 'Next Due on '.date('F '.$taxtypes[0]->due_date.', Y', strtotime('+ 1 month'));
                                 } else if(date('j') < $taxtypes[0]->due_date){
                                     //layo layo pa
-                                    $data['due'] = 'Next Due on '.date('F '.$taxtypes[0]->due_date.', Y');
+                                    $data['due'] = 'Will be due on '.date('F '.$taxtypes[0]->due_date.', Y');
                                 } else if(date('j') == $taxtypes[0]->due_date){
                                     //karon na
                                     $data['due'] = 'Today';
                                 }
                     break;
-                case 'annually': break;
-                case 'quarterly': break;
+                case 'annually': 
+                                if(date('j') > $taxtypes[0]->due_date){
+                                    //lapas na
+                                    $data['due'] = 'Next Due on '.date('F '.$taxtypes[0]->due_date.', Y', strtotime('+ 1 year'));
+                                } else if(date('j') < $taxtypes[0]->due_date){
+                                    //layo layo pa
+                                    $data['due'] = 'Will be due on '.date('F '.$taxtypes[0]->due_date.', Y');
+                                } else if(date('j') == $taxtypes[0]->due_date){
+                                    //karon na
+                                    $data['due'] = 'Today';
+                                }
+                    break;
+                case 'quarterly': 
+                                if(date('j') > $taxtypes[0]->due_date){
+                                    //lapas na
+                                    $data['due'] = 'Next Due on '.date('F '.$taxtypes[0]->due_date.', Y', strtotime('+ 4 months'));
+                                } else if(date('j') < $taxtypes[0]->due_date){
+                                    //layo layo pa
+                                    $data['due'] = 'Will be due on '.date('F '.$taxtypes[0]->due_date.', Y');
+                                } else if(date('j') == $taxtypes[0]->due_date){
+                                    //karon na
+                                    $data['due'] = 'Today';
+                                }
+                    break;
             }
             
             //get clients with this tax type

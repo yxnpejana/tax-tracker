@@ -25,7 +25,7 @@ $(document).ready(function(){
         $.fn.select2.defaults.set("theme", "classic");
 	
 	$('button#backtolist').click(function(){
-		window.location.replace("http://192.168.254.4/trak-this/index.php");
+		window.location.replace("http://192.168.254.5/traky/index.php");
 	});
 	
 	        

@@ -1,5 +1,5 @@
 $(function () {
-    var dir = 'http://192.168.254.4/traky/';
+    var dir = 'http://192.168.254.5/traky/';
 
         /* initialize the external events
          -----------------------------------------------------------------*/

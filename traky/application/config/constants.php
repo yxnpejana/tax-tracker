@@ -84,6 +84,6 @@ defined('EXIT_DATABASE')       OR define('EXIT_DATABASE', 8); // database error
 defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
 
-define('DIR_TRAKY_RES', 'http://192.168.254.4/traky/resources/');
-define('DIR_TRAKY', 'http://192.168.254.4/traky/');
+define('DIR_TRAKY_RES', 'http://192.168.254.5/traky/resources/');#192.168.254.4
+define('DIR_TRAKY', 'http://192.168.254.5/traky/');
 define('DIR_ROOT', 'C:/xampp/htdocs');

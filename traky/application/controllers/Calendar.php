@@ -10,13 +10,13 @@ class Calendar extends CI_Controller {
     
     public function index(){
         
-        if($this->session->userdata('logged_in') === TRUE){
+//        if($this->session->userdata('logged_in') === TRUE){
             $data['title'] = 'Calendar';
             $this->load->view('calendar', $data);
  
-        } else {
-            redirect('welcome');
-        }		
+//        } else {
+//            redirect('welcome');
+//        }		
     }
     
 

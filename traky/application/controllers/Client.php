@@ -4,19 +4,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Client extends CI_Controller {
 
 	public function index(){
-            if($this->session->userdata('logged_in') === TRUE){
+//            if($this->session->userdata('logged_in') === TRUE){
                 redirect('client/view_all');
-            } else {
-                redirect('welcome');
-            }		
+//            } else {
+//                redirect('welcome');
+//            }		
 	}
 	
 	public function view_all(){
-            if($this->session->userdata('logged_in') !== TRUE){
-                $logs = array('current' => site_url(), 'go_bak' => TRUE);
-                $this->session->flashdata($logs);
-                redirect('welcome');
-            } 
+//            if($this->session->userdata('logged_in') !== TRUE){
+//                $logs = array('current' => site_url(), 'go_bak' => TRUE);
+//                $this->session->flashdata($logs);
+//                redirect('welcome');
+//            } 
             
             $this->load->model('client_model');
 
@@ -32,11 +32,12 @@ class Client extends CI_Controller {
 	}
 	
 	public function view_client($client_id){
-            if($this->session->userdata('logged_in') !== TRUE){
-                $logs = array('current' => site_url(), 'go_bak' => TRUE);
-                $this->session->flashdata($logs);
-                redirect('welcome');
-            } 
+           
+//            if($this->session->userdata('logged_in') !== TRUE){
+//                $logs = array('current' => site_url(), 'go_bak' => TRUE);
+//                $this->session->flashdata($logs);
+//                redirect('welcome');
+//            } 
             
             $this->load->model('client_model');
             
@@ -52,11 +53,11 @@ class Client extends CI_Controller {
         }
         
         public function print_this($status){
-            if($this->session->userdata('logged_in') !== TRUE){
-                $logs = array('current' => site_url(), 'go_bak' => TRUE);
-                $this->session->flashdata($logs);
-                redirect('welcome');
-            } 
+//            if($this->session->userdata('logged_in') !== TRUE){
+//                $logs = array('current' => site_url(), 'go_bak' => TRUE);
+//                $this->session->flashdata($logs);
+//                redirect('welcome');
+//            } 
             
             $this->load->model('client_model');
             

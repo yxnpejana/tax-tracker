@@ -99,22 +99,22 @@
                 </ul>
               </li>              
               <!-- User Account: style can be found in dropdown.less -->
-              <li class="dropdown user user-menu">
+              <!--<li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <img src="<?php echo DIR_TRAKY; ?>users/<?php echo $this->session->userdata('user_id'); ?>.png" class="user-image" alt="User Image">
-                  <span class="hidden-xs"><?php echo $this->session->userdata('name'); ?></span>
+                    <img src="<?php // echo DIR_TRAKY; ?>users/<?php // echo $this->session->userdata('user_id'); ?>.png" class="user-image" alt="User Image">
+                  <span class="hidden-xs"><?php // echo $this->session->userdata('name'); ?></span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- User image -->
-                  <li class="user-header">
-                    <img src="<?php echo DIR_TRAKY; ?>users/<?php echo $this->session->userdata('user_id'); ?>.png" class="img-circle" alt="User Image">
+                  <!--<li class="user-header">
+                    <img src="<?php // echo DIR_TRAKY; ?>users/<?php // echo $this->session->userdata('user_id'); ?>.png" class="img-circle" alt="User Image">
                     <p>
-                      <?php echo $this->session->userdata('name'); ?> - <?php echo $this->session->userdata('position'); ?>
-                      <small>Member since <?php echo date("F j, Y", strtotime($this->session->userdata('started'))); ?></small>
+                      <?php // echo $this->session->userdata('name'); ?> - <?php // echo $this->session->userdata('position'); ?>
+                      <small>Member since <?php // echo date("F j, Y", strtotime($this->session->userdata('started'))); ?></small>
                     </p>
                   </li>
                   <!-- Menu Body -->
-                  <li class="user-body">
+                  <!--<li class="user-body">
                     <div class="col-xs-4 text-center">
                       <a href="#">Followers</a>
                     </div>
@@ -126,16 +126,16 @@
                     </div>
                   </li>
                   <!-- Menu Footer-->
-                  <li class="user-footer">
+                  <!--<li class="user-footer">
                     <div class="pull-left">
                       <a href="#" class="btn btn-default btn-flat">Profile</a>
                     </div>
                     <div class="pull-right">
-                        <a href="<?php echo DIR_TRAKY; ?>welcome/logout" class="btn btn-default btn-flat">Sign out</a>
+                        <a href="<?php // echo DIR_TRAKY; ?>welcome/logout" class="btn btn-default btn-flat">Sign out</a>
                     </div>
                   </li>
                 </ul>
-              </li>
+              </li>-->
               <!-- Control Sidebar Toggle Button -->
               <li>
                 <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
@@ -149,14 +149,14 @@
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
           <!-- Sidebar user panel -->
-          <div class="user-panel">
+          <!--<div class="user-panel">
             <div class="pull-left image">
-              <img src="<?php echo DIR_TRAKY; ?>users/<?php echo $this->session->userdata('user_id'); ?>.png" class="img-circle" alt="User Image">
+              <img src="<?php // echo DIR_TRAKY; ?>users/<?php // echo $this->session->userdata('user_id'); ?>.png" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
-              <p><?php echo $this->session->userdata('name'); ?></p>
+              <p><?php // echo $this->session->userdata('name'); ?></p>
              <!-- <a href="#"><i class="fa fa-circle text-success"></i> Online</a>-->
-            </div>
+            <!--</div>
           </div>
           <!-- search form -->
           <form action="#" method="get" class="sidebar-form">

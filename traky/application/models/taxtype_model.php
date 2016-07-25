@@ -41,25 +41,5 @@ class Taxtype_model extends CI_Model {
             
             return $this->db->insert_id();
         }
-        
-        public function get_deadlines(){
-            //date only
-            $today = date('d');
-            $weeks2 = date('d', strtotime(' + 2 weeks'));
-            //with month
-            $today_M = date('F d');
-            $weeks2_M = date('F d', strtotime(' + 2 weeks'));
-            //query now
-            $sql = $this->db->query('SELECT tax_types.tax_type_id, tax_types.tax_type_form '
-                . 'FROM tax_types '
-                . 'WHERE (tax_types.due_date > "'.$today.'" AND tax_types.due_date < "'.$weeks2.'")'
-                . ' OR (tax_types.due_date > "'.$today_M.'" AND tax_types.due_date < "'.$weeks2_M.'")');
-        
-        if($sql->num_rows() > 0){
-           $row = $sql->result();
-            
-           return $row;
-            
-        } else { return FALSE;}
-    }
+       
 }

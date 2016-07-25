@@ -72,21 +72,23 @@
             </div><!-- ./col -->
             
             
-            <div class="col-lg-5 col-xs-6">
+            <!--<div class="col-lg-5 col-xs-6">
               <!-- small box -->
-              <div class="small-box bg-yellow">
+              <!--<div class="small-box bg-yellow">
                 <div class="inner">
-                  <h3><?php echo $upDeadline_count; ?></h3>
+                  <h3><?php // echo $upDeadline_count; ?></h3>
                   <p>Upcoming Deadline</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-android-document"></i>
                 </div>
-                <?php foreach ($to_be_filed as $filed): ?>
-                    <a href="<?php echo DIR_TRAKY.'tax_types/view_all_clients/'.$filed->tax_type_id; ?>" class="small-box-footer"> 
-                        <?php echo $filed->tax_type_form; ?> <i class="fa fa-arrow-circle-right"></i>
+                <?php // if($to_be_filed):
+//                        foreach ($to_be_filed as $filed): ?>
+                    <a href="<?php // echo DIR_TRAKY.'tax_types/view_all_clients/'.$filed->tax_type_id; ?>" class="small-box-footer"> 
+                        <?php // echo $filed->tax_type_form; ?> <i class="fa fa-arrow-circle-right"></i>
                     </a>
-                <?php endforeach; ?>
+                <?php //   endforeach;
+//                    endif;?>
               </div>
             </div><!-- ./col -->
             

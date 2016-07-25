@@ -4,11 +4,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Tax extends CI_Controller {
 
     public function index(){
-        if($this->session->userdata('logged_in') === TRUE){
+//        if($this->session->userdata('logged_in') === TRUE){
             redirect('tax');
-        } else {
-            redirect('welcome');
-        }		
+//        } else {
+//            redirect('welcome');
+//        }		
     }
     
     public function filing(){

@@ -1,5 +1,7 @@
 <?php include 'header.php'; ?>
     
+    
+    
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
